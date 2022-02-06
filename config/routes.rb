@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'leaders/index'
+      get 'leaders/show'
+      get 'leaders/update'
+      get 'leaders/destroy'
+    end
+  end
   root 'pages#index'
 
   namespace :api do
