@@ -7,16 +7,19 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Dish.destroy_all
+Dir.foreach(Rails.root.join( 'public', 'images').to_s) do |fileName|
+    if (!fileName.eql? "..") && (!fileName.eql? ".")
 
-10.times do
-    Dish.create! ({
-        name: Faker::Food.dish,
-        image: Faker::Avatar.image,
-        category: Faker::Food.ethnic_category,
-        label: 'Label',
-        price: 29.76,
-        featured: true,
-        description: Faker::Food.description
-    })
-    
+        puts fileName
+
+        Dish.create! ({
+            name: Faker::Food.dish,
+            image: "/images/#{ fileName }",
+            category: Faker::Food.ethnic_category,
+            label: 'Label',
+            price: 29.76,
+            featured: true,
+            description: Faker::Food.description
+        })
+    end
 end
