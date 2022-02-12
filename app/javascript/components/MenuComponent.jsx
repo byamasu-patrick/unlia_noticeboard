@@ -15,7 +15,6 @@ const RenderMenuItem = ({ dish }) => {
         </Card>
     );
 }
-
 class Menu extends Component{
     constructor(props){
         super(props);
@@ -49,7 +48,6 @@ class Menu extends Component{
         })
         .catch(error => console.log(error.message));
     }
-
     render(){
         if(this.state.dishes.length > 1){
             const menu = this.state.dishes.map((dish) => {
