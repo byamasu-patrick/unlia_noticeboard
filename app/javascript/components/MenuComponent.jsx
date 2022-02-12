@@ -52,7 +52,7 @@ class Menu extends Component{
         if(this.state.dishes.length > 1){
             const menu = this.state.dishes.map((dish) => {
                 return (
-                    <div key = { dish.id } className='col-12 col-md-3 m-1'>
+                    <div key = { dish.id } className='col-12 col-md-5 m-2'>
                         <RenderMenuItem dish={ dish } />
                     </div>
                 );

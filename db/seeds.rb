@@ -8,7 +8,7 @@
 
 Dish.destroy_all
 Dir.foreach(Rails.root.join( 'public', 'images').to_s) do |fileName|
-    if (!fileName.eql? "..") && (!fileName.eql? ".")
+    if (!fileName.eql? "..") && (!fileName.eql? ".") && (!fileName.eql? "logo.png")
 
         puts fileName
 

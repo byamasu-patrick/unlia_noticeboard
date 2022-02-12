@@ -13,3 +13,29 @@
  *= require_tree .
  *= require_self
  */
+.navbar-dark{
+    background-color: #512DA8;
+}
+.jumbotron{
+    padding: 70px 30px 70px;
+    margin: 0px auto;
+    background: #9575CD;
+    color: floralwhite;
+    border-radius: 0px;
+}
+a{
+    text-decoration: none;
+}
+
+
+
+
+  /* This is the footer start that starts here */
+  .footer{
+    background-color: #D1C4E9;
+    margin: 0px auto;
+    padding: 20px 0px 20px 0px;
+  }
+  .footer .list-unstyled  a{
+      text-decoration: none;
+  }
