@@ -5,4 +5,6 @@ class Dish < ApplicationRecord
     validates :price, presence: true
     validates :featured, presence: true
     validates :description, presence: true
+
+    has_many :comments
 end

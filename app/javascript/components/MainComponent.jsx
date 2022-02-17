@@ -41,12 +41,20 @@ class Main extends Component{
     componentDidMount(){
         this.props.fetchDishes();
     }
+
     render(){
+        const HomePage = () => {
+            return (
+                <Home dish = { this.props.dishes.dishes.filter((dish) => dish.featured)[0] } 
+                    dishesLoading = { this.props.dishes.isLoading }
+                    dishesErrMessage = { this.props.dishes.errMessage } />
+            );
+        }
         return (
             <div>
                 <Header />
                 <Routes>
-                    <Route exact path = '/home' element = { <Home message = 'This is a react router' /> }/>
+                    <Route exact path = '/' element = { HomePage }/>
                     <Route exact path = "/menu" element = { <Menu dishes = { this.props.dishes } /> } />
                     <Route exact path = "/aboutus" element = { <About /> } />
                     <Route path = '/menu/:dishId' element = { <DishDetails/>} />
