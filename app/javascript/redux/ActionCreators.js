@@ -32,9 +32,13 @@ export const dishesLoading = () => ({
 export const dishesFailed = (errmess) => ({
     type: ActionTypes.DISHES_FAILED,
     payload: errmess
-})
+});
 // Create an addDishes reducer function to the store
 export const addDishes = (dishes) => ({
     type: ActionTypes.ADD_DISHES,
     payload: dishes
-})
+});
+// Comments action creators
+export const fecthCommments = () => {
+    
+};
