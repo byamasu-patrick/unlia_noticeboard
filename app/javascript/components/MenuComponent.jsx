@@ -18,39 +18,10 @@ const RenderMenuItem = ({ dish }) => {
 class Menu extends Component{
     constructor(props){
         super(props);
-
-        this.state = {
-            dishes: []
-        };
-    }
-    componentDidMount(){
-        fetch('/api/v1/dishes/index')
-        .then(response => {
-            if(response.ok){
-                return  response;
-            }
-            else{
-                var error = new Error("Error "+ response.status +": "+ response.statusText);
-                error.response = response;
-                throw error;
-            }
-        }, 
-        error => {
-            var errormess = new Error(error.message);
-            throw errormess;
-        })
-        .then(response => response.json())
-        .then(dishesData => {
-            this.setState({
-                dishes: dishesData
-            });
-            console.log(this.state.dishes);
-        })
-        .catch(error => console.log(error.message));
     }
     render(){
-        if(this.state.dishes.length > 1){
-            const menu = this.state.dishes.map((dish) => {
+        if(this.props.dishes.dishes.length > 1){
+            const menu = this.props.dishes.dishes.map((dish) => {
                 return (
                     <div key = { dish.id } className='col-12 col-md-5 m-2'>
                         <RenderMenuItem dish={ dish } />
