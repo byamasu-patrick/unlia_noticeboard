@@ -27,7 +27,10 @@ a{
     text-decoration: none;
 }
 
-
+.loading{
+    width: 100px;
+    margin: 100px auto;
+}
 
 
   /* This is the footer start that starts here */

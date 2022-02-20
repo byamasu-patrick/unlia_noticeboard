@@ -8,16 +8,19 @@ import DishDetails from './DishDetailsComponent';
 import About from './AboutComponent';
 
 import { connect } from 'react-redux';
-import { fetchDishes } from '../redux/ActionCreators';
+import { fetchDishes, fecthComments, postComment } from '../redux/ActionCreators';
 // Map the state to props
 const  mapStateToProps = (state) => {
     return {
-        dishes: state.dishes
+        dishes: state.dishes,
+        comments: state.comments
     }
 };
 // Let map the dispatch to props
 const mapDispatchToProps = (dispatch) => ({
-    fetchDishes: () => { dispatch(fetchDishes()) }
+    fetchDishes: () => { dispatch(fetchDishes()) },
+    fecthComments: () => { dispatch(fecthComments()) },
+    postComment: (dishId, rating, author, comment) => { dispatch(postComment(dishId, rating, author, comment)) }
 });
 
 // Let define withrouter function to map state and dispatch to props
@@ -40,6 +43,7 @@ class Main extends Component{
 
     componentDidMount(){
         this.props.fetchDishes();
+        this.props.fecthComments();
     }
 
     render(){
@@ -54,7 +58,7 @@ class Main extends Component{
             <div>
                 <Header />
                 <Routes>
-                    <Route exact path = '/' element = { HomePage }/>
+                    <Route exact path = '/home' element = { <HomePage /> }/>
                     <Route exact path = "/menu" element = { <Menu dishes = { this.props.dishes } /> } />
                     <Route exact path = "/aboutus" element = { <About /> } />
                     <Route path = '/menu/:dishId' element = { <DishDetails/>} />

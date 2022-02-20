@@ -39,6 +39,80 @@ export const addDishes = (dishes) => ({
     payload: dishes
 });
 // Comments action creators
-export const fecthCommments = () => {
+export const fecthComments = () => (dispatch) => {
+    // Fetch the comments from the server
+    return fetch(BASE_URL +"comments/index")
+        .then(response => {
+            if (response.ok) {
+                return response;
+            }
+            else{
+                var error = new Error("Error "+ response.status +": "+ response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }, error => {
+            var errorMessage = new Error(error.message);
+            throw errorMessage;
+        })
+        .then(response => response.json())
+        .then(comments => dispatch(addComments(comments)))
+        .catch(error => dispatch(commentsFailed(error.message)));
+};
+// Add Comments to the redux store
+export const addComments = (comments) => ({
+    type: ActionTypes.ADD_COMMENTS,
+    payload: comments
+});
+// Add the failed message
+export const commentsFailed = (errmess) => ({
+    type: ActionTypes.COMMENTS_FAILED,
+    payload: errmess
+});
+
+export const postComment = (dishId, rating, author, comment) => (dispatch) => {
+    // Let get the csrf token for the communication purpose 
+    const csrfToken = document.querySelector('[name=csrf-token]').content;
+    //console.log(csrfToken);
+    const newComment = {
+        dishId: dishId,
+        rating: rating,
+        author: author,
+        comment: comment
+    };
+
+    return fetch( BASE_URL +'comments/create', {
+        method: 'POST',
+        body: JSON.stringify(newComment),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if(response.ok){
+            return  response;
+        }
+        else{
+            var error = new Error("Error "+ response.status +": "+ response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, 
+    error => {
+        var errormess = new Error(error.message);
+        throw errormess;
+    })
+    .then(response => response.json())
+    .then(response => dispatch(addComment(response)))
+    .catch(error => {
+        console.log("Post comment: "+ error.message);
+        alert("Your comment could not be posted\nError: "+ error.message);
+    });
     
 };
+export const addComment = (comment) => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+});
