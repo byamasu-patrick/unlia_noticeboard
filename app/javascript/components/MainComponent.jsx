@@ -53,7 +53,20 @@ class Main extends Component{
                     dishesLoading = { this.props.dishes.isLoading }
                     dishesErrMessage = { this.props.dishes.errMessage } />
             );
-        }
+        };
+        // Create a Dish with Id that map the dish with its ID
+        const DishWithId = ({ match }) => {
+            return(
+                <DishDetails 
+                    isLoading = { this.props.dishes.isLoading }
+                    errMessage = { this.props.dishes.errMessage }
+                    dish = { this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dish_id, 10))[0] }
+                    commentsErrMessage = { this.props.comments.errMessage }
+                    comment = { this.props.messages.messages.filter((comment) => comment.dish_id === parseInt(match.params.dish_id, 10)) }
+                    postComment = { this.props.postComment }
+                />
+            );
+        };
         return (
             <div>
                 <Header />
@@ -61,7 +74,7 @@ class Main extends Component{
                     <Route exact path = '/home' element = { <HomePage /> }/>
                     <Route exact path = "/menu" element = { <Menu dishes = { this.props.dishes } /> } />
                     <Route exact path = "/aboutus" element = { <About /> } />
-                    <Route path = '/menu/:dishId' element = { <DishDetails/>} />
+                    <Route path = '/menu/:dish_id' element = { DishWithId } />
                 </Routes>
                 <Footer />
             </div>
