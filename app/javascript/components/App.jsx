@@ -10,22 +10,14 @@ class App extends Component{
     constructor(props){
         super(props);
     }
-    render(){
-        const pathname = window.location.pathname.toString().split("/");        
-        if (pathname[1] === 'users') {
-            return (
-                <div></div>
-            );
-        }
-        else{
-            return (
-                <Provider store = { store }>
-                    <BrowserRouter>
-                        <Main />                
-                    </BrowserRouter>
-                </Provider>
-            );
-        }
+    render(){        
+        return (
+            <Provider store = { store }>
+                <BrowserRouter>
+                    <Main />                
+                </BrowserRouter>
+            </Provider>
+        );
     }
 }
 

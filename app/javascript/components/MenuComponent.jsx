@@ -1,18 +1,25 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { FadeTransform } from 'react-animation-components';
 
 
 const RenderMenuItem = ({ dish }) => {
     return (
-        <Card>
-            <Link to = { `/menu/${ dish.id }` }>
-                <CardImg src = { dish.image } width = '100%' alt= { dish.name }/>
-                <CardImgOverlay body className='ml-5'>
-                    <CardTitle>{ dish.name }</CardTitle>
-                </CardImgOverlay>
-            </Link>
-        </Card>
+        <FadeTransform in
+            transformProps = {{
+                exitTransform: 'scale(0.5) tranlateY(-50%)'
+            }}
+            >
+            <Card>
+                <Link to = { `/menu/${ dish.id }` }>
+                    <CardImg src = { dish.image } width = '100%' alt= { dish.name }/>
+                    <CardImgOverlay body className='ml-5'>
+                        <CardTitle>{ dish.name }</CardTitle>
+                    </CardImgOverlay>
+                </Link>
+            </Card>
+        </FadeTransform>
     );
 }
 class Menu extends Component{
