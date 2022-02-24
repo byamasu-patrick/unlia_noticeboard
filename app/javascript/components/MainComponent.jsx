@@ -8,7 +8,8 @@ import DishDetails from './DishDetailsComponent';
 import About from './AboutComponent';
 
 import { connect } from 'react-redux';
-import { fetchDishes, fecthComments, postComment } from '../redux/ActionCreators';
+import { fetchDishes, fecthComments, postComment,createUser } from '../redux/ActionCreators';
+import Login from './authentication/LoginComponent';
 // Map the state to props
 const  mapStateToProps = (state) => {
     return {
@@ -20,7 +21,8 @@ const  mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     fetchDishes: () => { dispatch(fetchDishes()) },
     fecthComments: () => { dispatch(fecthComments()) },
-    postComment: (dishId, rating, author, comment) => { dispatch(postComment(dishId, rating, author, comment)) }
+    postComment: (dishId, rating, author, comment) => { dispatch(postComment(dishId, rating, author, comment)) },
+    createUser: () => { dispatch(createUser()) }
 });
 
 // Let define withrouter function to map state and dispatch to props
@@ -44,6 +46,7 @@ class Main extends Component{
     componentDidMount(){
         this.props.fetchDishes();
         this.props.fecthComments();
+        this.props.createUser();
     }
 
     render(){

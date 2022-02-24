@@ -15,14 +15,17 @@ Rails.application.routes.draw do
       # resources :comments      
       get 'comments/index'
       post 'comments/create'
-      delete :logout, to: 'sessions#logged_out'
+
+      delete :logout, to: 'sessions#logout'
       get :login, to: 'sessions#logged_in'
+
+      post 'registration/create', to: 'registration#create'
+      
     end
   end
   root 'pages#index'
 
   match '/*path', to: 'pages#index', via: :all
 
-  # match '/*users', to: 'registrations#index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

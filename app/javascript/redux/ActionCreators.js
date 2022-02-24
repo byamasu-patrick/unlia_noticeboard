@@ -116,3 +116,57 @@ export const addComment = (comment) => ({
     type: ActionTypes.ADD_COMMENT,
     payload: comment
 });
+
+/* 
+    Auhentication service here
+
+
+*/
+
+export const createUser = () => () => {
+    // Let get the csrf token for the communication purpose 
+    const csrfToken = document.querySelector('[name=csrf-token]').content;
+    //console.log(csrfToken);
+    const newUser = {
+        'user': {
+            name: 'Don Nshombo',
+            profile: '/images/pp.jpg',
+            location: 'Lilongwe',
+            email: 'don@gmail.com',
+            password: 'don??>>2020',
+            password_confirmation: 'don??>>2020'
+        }
+    }
+    ;
+    return fetch(BASE_URL +'registration/create', {
+        method: 'POST',
+        body: JSON.stringify(newUser),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => {
+        if(response.ok){
+            return  response;
+        }
+        else{
+            var error = new Error("Error "+ response.status +": "+ response.statusText);
+            error.response = response;
+            throw error;
+        }
+    }, 
+    error => {
+        var errormess = new Error(error.message);
+        throw errormess;
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.log("Create User: "+ error.message);
+        alert("User account could not be created\nError: "+ error.message);
+    });
+};

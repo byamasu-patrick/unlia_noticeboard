@@ -13,13 +13,21 @@
  *= require_tree .
  *= require_self
  */
+ :root{
+     --main-color: #512DA8;
+     --primary-color: #9575CD;
+     --secondary-color: #D1C4E9;
+ }
+ *{
+     box-sizing: border-box;
+ }
 .navbar-dark{
-    background-color: #512DA8;
+    background-color: var(--main-color);
 }
 .jumbotron{
     padding: 70px 30px 70px;
     margin: 0px auto;
-    background: #9575CD;
+    background: var(--primary-color);
     color: floralwhite;
     border-radius: 0px;
 }
@@ -35,7 +43,7 @@ a{
 
   /* This is the footer start that starts here */
   .footer{
-    background-color: #D1C4E9;
+    background-color: var(--secondary-color);
     margin: 0px auto;
     padding: 20px 0px 20px 0px;
   }
