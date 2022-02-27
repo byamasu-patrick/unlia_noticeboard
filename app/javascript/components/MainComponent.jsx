@@ -6,10 +6,9 @@ import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import DishDetails from './DishDetailsComponent';
 import About from './AboutComponent';
-
 import { connect } from 'react-redux';
 import { fetchDishes, fecthComments, postComment,createUser } from '../redux/ActionCreators';
-import Login from './authentication/LoginComponent';
+import { actions } from 'react-redux-form';
 // Map the state to props
 const  mapStateToProps = (state) => {
     return {
@@ -21,7 +20,8 @@ const  mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
     fetchDishes: () => { dispatch(fetchDishes()) },
     fecthComments: () => { dispatch(fecthComments()) },
-    postComment: (dishId, rating, author, comment) => { dispatch(postComment(dishId, rating, author, comment)) },
+    postComment: ([dish_id, rating, author, comment]) => { dispatch(postComment(dish_id, rating, author, comment)) },
+    resetDishComment: () => { dispatch(actions.reset('comment_form')) },
     createUser: () => { dispatch(createUser()) }
 });
 
@@ -58,15 +58,17 @@ class Main extends Component{
             );
         };
         // Create a Dish with Id that map the dish with its ID
-        const DishWithId = ({ match }) => {
+        const DishWithId = () => {
+            const params = useParams();
             return(
                 <DishDetails 
                     isLoading = { this.props.dishes.isLoading }
                     errMessage = { this.props.dishes.errMessage }
-                    dish = { this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dish_id, 10))[0] }
+                    dish = { this.props.dishes.dishes.filter((dish) => dish.id === parseInt(params.dish_id, 10))[0] }
                     commentsErrMessage = { this.props.comments.errMessage }
-                    comment = { this.props.messages.messages.filter((comment) => comment.dish_id === parseInt(match.params.dish_id, 10)) }
+                    comments = { this.props.comments.comments.filter((comment) => comment.dish_id === parseInt(params.dish_id, 10)) }
                     postComment = { this.props.postComment }
+                    resetDishComment = { this.props.resetDishComment }
                 />
             );
         };
@@ -77,7 +79,7 @@ class Main extends Component{
                     <Route exact path = '/home' element = { <HomePage /> }/>
                     <Route exact path = "/menu" element = { <Menu dishes = { this.props.dishes } /> } />
                     <Route exact path = "/aboutus" element = { <About /> } />
-                    <Route path = '/menu/:dish_id' element = { DishWithId } />
+                    <Route path = '/menu/:dish_id' element = { <DishWithId /> } />
                 </Routes>
                 <Footer />
             </div>

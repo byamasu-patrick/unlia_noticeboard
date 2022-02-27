@@ -16,19 +16,21 @@ export const FormContainer = styled.form`
     box-shadow: 0px 0px 2.5px rgba(15, 15, 15, 0.19);
 `;
 
-export const MutedLink = styled.a`
+export const MutedLink = styled.span`
     font-size: 11px;
     color: rgba(200, 200, 200, 0.8);
     font-weight: 500;
     text-decoration: none;
-    margin: 12px 0px;    
+    margin: 12px 0px;  
+    cursor: pointer;  
 `;
 
-export const BoldLink = styled.a`
+export const BoldLink = styled.span`
     font-size: 12px;
-    color: rgb(241, 196, 15);
+    color: rgb(81, 45, 168);
     font-weight: 500;
-    text-decoration: none;
+    text-decoration: none; 
+    cursor: pointer;  
 `;
 
 export const Input = styled.input`
@@ -49,7 +51,7 @@ export const Input = styled.input`
     }
     &:focus {
         outline: none;
-        border-bottom: 1.5px solid rgb(241, 196, 15);
+        border-bottom: 1.5px solid rgb(81, 45, 168);
     }
 `;
 
@@ -59,15 +61,16 @@ export const SubmitButtom = styled.button`
     color: #fff;
     font-size: 15px;
     font-weight: 600;
+    margin-top: 10px;
     border: none;
     border-radius: 100px 100px 100px 100px;
     cursor: pointer;
     transition: all, 240ms ease-in-out;
-    background: rgb(241, 196,15);
+    background: rgb(81, 45, 168);
     background: linear-gradient(
         58deg,
-        rgba(241, 196, 15, 1) 20%,
-        rgba(243, 172, 15, 1) 100%
+        rgba(81, 45, 168, 1) 20%,
+        rgba(149, 117, 205, 1) 100%
     );
 
     &:hover{

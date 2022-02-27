@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { LoginForm } from "./LoginFormComponent";
+import { SignupForm } from "./SignupFormComponent"
 import { motion } from 'framer-motion/dist/framer-motion';
+import { AccountContext } from "./AccountContext";
 
 const AppContainer = styled.div`
     width: 100%;
@@ -10,7 +12,9 @@ const AppContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 2%;
 `;
+
 const BoxContainer = styled.div`
     width: 280px;
     min-height: 550px;
@@ -31,7 +35,7 @@ const TopContainer = styled.div`
     padding: 0 1.8em;
     padding-bottom: 5em;
 `;
-const BackDrop = styled.div`
+const BackDrop = styled(motion.div)`
     width:160%;
     height: 550px;
     position: absolute;
@@ -41,11 +45,11 @@ const BackDrop = styled.div`
     left: -70px;
     flex-direction: column;
     border-radius: 50%;
-    background: rgb(241, 196,15);
+    background: rgb(81, 45, 168);
     background: linear-gradient(
         58deg,
-        rgba(241, 196, 15, 1) 20%,
-        rgba(243, 172, 15, 1) 100%
+        rgba(81, 45, 168, 1) 20%,
+        rgba(149, 117, 205, 1) 100%
     );
 `;
 const HeaderContainer = styled.div`
@@ -70,7 +74,7 @@ const SmallText = styled.h5`
     margin-top: 7px;
 `;
 
-const InnerConatiner = styled.div`
+const InnerContainer = styled.div`
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -79,7 +83,7 @@ const InnerConatiner = styled.div`
 
 const backdropVariants = {
     expanded: {
-        width: '233%',
+        width: "233%",
         height: "1050px",
         borderRadius: "20%",
         transform: "rotate(60deg)"
@@ -92,35 +96,73 @@ const backdropVariants = {
     }
 };
 
+const expandedTransition = {
+    type: "spring",
+    duration: 2.3,
+    stiffness: 30,
+}
+
 const Login = (props) => {
 
     const [isExpanded, setExpanded] = useState(false);
+    const [active, setActive] = useState("signin");
+
     const playExpandingAnimation = () => {
         setExpanded(true);
         setTimeout(() => {
             setExpanded(false);
-        }, 3000);
+        }, expandedTransition.duration * 1000 - 1500);
     };
+
+    const switchToSignup = () => {
+        playExpandingAnimation();
+        setTimeout(() => {
+            setActive("signup");
+        }, 400);
+    };
+    const switchToSignin = () => {
+        playExpandingAnimation();
+        setTimeout(() => {
+            setActive("signin");
+        }, 400);
+    };
+    const contextValue = { switchToSignup, switchToSignin };
 
     return (
        <AppContainer>
-            <BoxContainer>
-                <TopContainer>
-                    <BackDrop 
-                       />
-                    <HeaderContainer>
-                        <HeaderText>Welcome</HeaderText>
-                        <HeaderText>back</HeaderText>
-                        <SmallText>Please sign-in to continue</SmallText>
-                    </HeaderContainer>
-                </TopContainer>
-                <InnerConatiner>
-                    <LoginForm />
-                </InnerConatiner>
-                {/* <p onClick={ playExpandingAnimation }>Click Me</p> */}
-            </BoxContainer>
+            <AccountContext.Provider value={contextValue}>                
+                <BoxContainer>
+                    <TopContainer>
+                        <BackDrop 
+                            initial={false}
+                            animate={isExpanded ?  "expanded" : "collapsed"}
+                            variants={backdropVariants}
+                            transition={expandedTransition}
+                        />
+                        {active === 'signin' && 
+                            <HeaderContainer>
+                                <HeaderText>Welcome</HeaderText>
+                                <HeaderText>back</HeaderText>
+                                <SmallText>Please sign-in to continue</SmallText>
+                            </HeaderContainer>
+                        }
+                        {active === 'signup' && 
+                            <HeaderContainer>
+                                <HeaderText>Create</HeaderText>
+                                <HeaderText>Account</HeaderText>
+                                <SmallText>Please sign-up to continue</SmallText>
+                            </HeaderContainer>
+                        }
+                        
+                    </TopContainer>
+                    <InnerContainer>
+                        {active === 'signin' && <LoginForm />}
+                        {active === 'signup' && <SignupForm />}
+                    </InnerContainer>                
+                </BoxContainer>
+            </AccountContext.Provider>
        </AppContainer>
-    );
+    ); 
 };
 
 export default Login;

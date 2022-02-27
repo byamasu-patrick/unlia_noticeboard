@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AccountContext } from "./AccountContext";
 import { BoxContainer, Input, FormContainer, BoldLink, MutedLink, SubmitButtom } from "./common";
 
 export function LoginForm(props){
+
+    const { switchToSignup } = useContext(AccountContext);
+
     return (
         <BoxContainer>
             <FormContainer>
@@ -10,7 +14,7 @@ export function LoginForm(props){
             </FormContainer>
             <MutedLink href="#">Forget your password? </MutedLink>
             <SubmitButtom type="submit">Signin</SubmitButtom>
-            <MutedLink href="#">Don't have an account? <BoldLink href="#">Signup</BoldLink></MutedLink>
+            <MutedLink>Don't have an account? <BoldLink onClick={switchToSignup}>Signup</BoldLink></MutedLink>
         </BoxContainer>
     ); 
 };
