@@ -3,7 +3,7 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 import Main from "./MainComponent";
 import { Provider } from 'react-redux';
 import { ConfigureStore } from '../redux/configureStore';
-import Login from "./authentication/LoginComponent";
+import Authentication from "./authentication/AuthenticationComponent";
 
 const store = ConfigureStore();
 
@@ -13,7 +13,7 @@ class App extends Component{
     }
     render(){        
         if (window.location.pathname === '/login') {
-            return <Login />
+            return <Authentication />
         } else {
             return (
                 <Provider store = { store }>

@@ -21,8 +21,8 @@ class CommentsForm extends Component{
         // Send the comment to the sever
         console.log("Comment: "+ JSON.stringify(values));
         this.props.resetDishComment(); 
-
-        // this.props.postComment(this.props.dish.id, values.rating, values.author, values.comment);
+        // Save the post
+        this.props.postComment(this.props.dish.id, values.rating, values.author, values.comment);
     }
     render(){
         return (

@@ -102,7 +102,7 @@ const expandedTransition = {
     stiffness: 30,
 }
 
-const Login = (props) => {
+const Authentication = (props) => {
 
     const [isExpanded, setExpanded] = useState(false);
     const [active, setActive] = useState("signin");
@@ -165,5 +165,5 @@ const Login = (props) => {
     ); 
 };
 
-export default Login;
+export default Authentication;
 

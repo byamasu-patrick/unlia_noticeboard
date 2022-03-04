@@ -119,7 +119,10 @@ export const addComment = (comment) => ({
 
 /* 
     Auhentication service here
-
+    * User registration through createUser() action creator
+    * Login user
+    * Check if the user is authenticated
+    * Logout the user
 
 */
 
@@ -170,3 +173,29 @@ export const createUser = () => () => {
         alert("User account could not be created\nError: "+ error.message);
     });
 };
+export const isUserAuth = () => (dispatch) => {
+
+    return fetch(BASE_URL +"login")
+        .then(response => {
+            if(response.ok){
+                return response;
+            }
+            else{
+                var error = new Error("Error "+ response.status +":"+ response.statusText);
+                error.response = response;
+                throw error;
+            }
+        }, error => {
+            var errorMessage = new Error(error.message);
+            throw errorMessage;
+        })
+        //.then(response => response.json())
+        .then(response => {
+            console.log(response);
+            // console.log(JSON.stringify(response));
+        })        
+        .catch(error => {
+            console.log(error);
+        });
+};
+

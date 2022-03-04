@@ -7,8 +7,9 @@ import Menu from './MenuComponent';
 import DishDetails from './DishDetailsComponent';
 import About from './AboutComponent';
 import { connect } from 'react-redux';
-import { fetchDishes, fecthComments, postComment,createUser } from '../redux/ActionCreators';
+import { fetchDishes, fecthComments, postComment,createUser, isUserAuth } from '../redux/ActionCreators';
 import { actions } from 'react-redux-form';
+import Authentication from './authentication/AuthenticationComponent';
 // Map the state to props
 const  mapStateToProps = (state) => {
     return {
@@ -22,7 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
     fecthComments: () => { dispatch(fecthComments()) },
     postComment: ([dish_id, rating, author, comment]) => { dispatch(postComment(dish_id, rating, author, comment)) },
     resetDishComment: () => { dispatch(actions.reset('comment_form')) },
-    createUser: () => { dispatch(createUser()) }
+    createUser: () => { dispatch(createUser()) },
+    isUserAuth: () => { dispatch(isUserAuth()) }
 });
 
 // Let define withrouter function to map state and dispatch to props
@@ -47,6 +49,8 @@ class Main extends Component{
         this.props.fetchDishes();
         this.props.fecthComments();
         this.props.createUser();
+        this.props.isUserAuth();
+
     }
 
     render(){
@@ -72,6 +76,7 @@ class Main extends Component{
                 />
             );
         };
+
         return (
             <div>
                 <Header />

@@ -19,16 +19,22 @@ class SessionsController < ApplicationController
     end
     # Check if the user is logged in in the system
     def logged_in
-        if @current_user
-            render json: {
-                logged_in: true,
-                user: @current_user
-            }
-        else
-            render json: {
-                logged_in: false,
-            }
-        end
+
+        puts "*****************************User Check Proceess....*****************"
+        # if @current_user
+        #     render json: {
+        #         logged_in: true,
+        #         user: @current_user
+        #     }
+        # else
+        #     render json: {
+        #         logged_in: false
+        #     }
+        # end
+        render json: {
+            status: :okay
+        }
+
     end
     # Logout the user in the system
     def logout

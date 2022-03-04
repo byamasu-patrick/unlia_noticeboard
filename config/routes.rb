@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       post 'comments/create'
 
       delete :logout, to: 'sessions#logout'
-      get :login, to: 'sessions#logged_in'
+      get 'sessions/logged_in', to: 'sessions#logged_in'
 
       post 'registration/create', to: 'registration#create'
       
